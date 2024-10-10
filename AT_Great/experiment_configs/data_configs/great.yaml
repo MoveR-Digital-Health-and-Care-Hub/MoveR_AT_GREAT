@@ -1,0 +1,123 @@
+batch_size: 256 #512 #256 #32
+normalize: None
+norm_stats: source_domain_statisitcs # mean and std for transfer task is used from training source dataset
+use_wandb: True
+feats: 'ftd_base' # 'aug' # 
+lda: False
+
+source:
+  sub: participant_5
+  class: [1,2,3,4,5,6] # make this a list (check the ipynb files though)
+  pos: ['2'] # choose one position for now (from 1-9)
+  data_path: '/home/kasia/AT_Great/AT_Great/data/processed_data_144x256feats_augstride10and10/participant_5' #'/home/kasia/AT_Great/AT_Great/processed_aug_data/hudgins256_100/participant_5' 
+target:
+  sub: participant_5
+  class: [1,2,3,4,5,6] # make this a list (check the ipynb files though)
+  pos: ['6'] # choose one position for now (from 1-9)
+  data_path: '/home/kasia/AT_Great/AT_Great/data/processed_data_144x256feats_augstride10and10/participant_5' # '/home/kasia/AT_Great/AT_Great/processed_aug_data/hudgins256_100/participant_5'
+task: 'transfer_learning' #'source_only' 
+
+k_folds : 5
+fold: 0
+fold_seed: 42
+fold_config: AT_Great/experiment_configs/fold_generator/participant_5.yaml
+fold_params: AT_Great/experiment_configs/fold_params/participant_5.yaml
+
+position_scenarios:
+    args_all:
+      sub: participant_1
+      class: 1 # make this a list (check the ipynb files though)
+      pos: ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+      block: ['block1']
+    args_diag:
+      sub: participant_1
+      class: 1 # make this a list (check the ipynb files though)
+      pos: ['1', '3', '5', '7', '9']
+      block: ['block1']
+      day: ['day2']
+    args_cross:
+      sub: participant_1 
+      class: 1 # make this a list (check the ipynb files though)
+      pos: ['2', '4', '5', '6', '8']
+      block: ['block1']
+      day: ['day1']
+    cross:
+      pos: ['2', '4', '5', '6', '8']
+      block: ['block1', 'block2']
+      day: ['day1']
+    diag:
+      pos: ['1', '3', '5', '7', '9']
+      block: ['block1', 'block2']
+      day: ['day2']
+var_pos:
+  day1_block1: [2,4,5,6,8]
+  day1_block2: [2,4,5,6,8]
+  day2_block1: [1,3,5,7,9]
+  day2_block2: [1,3,5,7,9]
+grasp_dec:
+  '1': power
+  '2': lateral
+  '3': tripod
+  '4': pointer
+  '5': open
+  '6': rest
+
+translation_mode_pos:
+  rows:
+    'rows1': ['1','2','3']
+    'rows2': ['4','5','6']
+    'rows3': ['7','8','9']
+  cols:   
+    'cols1': ['1','4','7']
+    'cols2': ['2','5','8']
+    'cols3': ['3','6','9']
+pos_day_block:
+  '1': ['day2_block1', 'day2_block2']
+  '2': ['day1_block1', 'day1_block2']
+  '3': ['day2_block1', 'day2_block2']
+  '4': ['day1_block1', 'day1_block2']
+  '5': ['day1_block1', 'day1_block2'] 
+  '10': ['day2_block1', 'day2_block2'] # this is a dummy value:10 for the pos 5 in the X (diagonal configuration)
+  '6': ['day1_block1', 'day1_block2']
+  '7': ['day2_block1', 'day2_block2']
+  '8': ['day1_block1', 'day1_block2']
+  '9': ['day2_block1', 'day2_block2']
+pos_layout:
+ '1': diag
+ '2': cross
+ '3': diag
+ '4': cross
+ '5': [cross, diag]
+ '6': cross
+ '7': diag
+ '8': cross
+ '9': diag
+
+ 
+# source:
+#   sub: participant_3
+#   class: [1,2,3,4,5,6] # make this a list (check the ipynb files though)
+#   pos: ['2'] # choose one position for now (from 1-9)
+#   # block: ['block1'] # override depending on the position
+#   # day: ['day1'] # override depending on the position
+#   data_path: '/home/kasia/AT_Great/AT_Great/processed_aug_data/hudgins256_100/participant_3' 
+# target:
+#   sub: participant_3
+#   class: [1,2,3,4,5,6] # make this a list (check the ipynb files though)
+#   pos: ['6'] # choose one position for now (from 1-9)
+#   data_path: '/home/kasia/AT_Great/AT_Great/processed_aug_data/hudgins256_100/participant_3'
+#   # block: ['block1'] # override depending on the position
+#   # day: ['day1'] # override depending on the position
+
+#   # data_path: 
+#   #   single: '/home/kasia/AT_Great/AT_Great/processed_aug_data/hudgins256_100/participant_7'
+#   #   all: [list all subject paths]]
+
+#   # pos:
+#   #   pos_name: ['6']
+#   #   data_path: '/home/kasia/AT_Great/AT_Great/processed_aug_data/hudgins256_100/participant_7'
+# # '/home/kasia/AT_Great/AT_Great/data/timefreq_processed_data_SLIDE10/participant_5'
+# k_folds_file : 'fold_data.json'
+ # to be overriden by the k_folds
+# sourceonly_kfolds_file : 'sourceonly_fold_data.json'
+# tl_kfolds_file: 'tl_fold_data.json'
