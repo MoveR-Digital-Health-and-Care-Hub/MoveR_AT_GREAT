@@ -1,0 +1,23 @@
+name: great_exp
+directory: experiments
+use_wandb: False
+wandb_project_name: AT_Great
+dataset:
+  name: great
+  config: AT_Great/experiment_configs/data_configs/great.yaml
+seed_fold_gen_path : [ 'fold_generator_seed200'] #, 'fold_generator_seed0'] # 'fold_generator_seed100',
+fold_params_dirs : [ 'fold_params_seed200'] #, 'fold_params_seed0'] #'fold_params_seed100',
+seeds : [ 's200'] #, 's0'] # 's100',
+hudgins_feats : True 
+
+
+poss : [[2,4,5,6,8], [1,3,10,7,9]] 
+pos_clf: False #False
+grasps: [1,2,3,4,5,6]
+grasp_dec:
+  '1': power
+  '2': lateral
+  '3': tripod
+  '4': pointer
+  '5': open
+  '6': rest
